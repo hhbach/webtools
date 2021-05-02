@@ -1,10 +1,14 @@
 import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+import About from './timeConverter.js';
+import Home from './home.js';
 
 function App() {
     return (
@@ -41,20 +45,5 @@ function App() {
     );
 }
 export default App;
-function Home() {
-  return (
-    <div>
-	    <h1>Daves landing page </h1>
-            Below are apps/tools/website that might be useful, fun, or just plain experimental
-            Use at your own discretion. In the words of any open source projects, this page comes
-            with NO warantees.
-    </div>
-  );
-}
-function About() {
-  return (
-    <div>
-      <h2>Time Converter</h2>
-    </div>
-  );
-}
+
+
