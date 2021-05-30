@@ -47,74 +47,44 @@ class timeConverter extends React.Component {
 
   render() {
     return (
-      <div class="flex flex-row w-full flex-wrap border-t-4 border-yellow-500">
-        <div class="margin-auto w-4/5 relative flex flex-col">
-          <div id="formatToggle" class="absolute top-0 right-0 p-5">
-            <label
-              for="toggle"
-              class="text-xs text-gray-700"
-              value="seconds EPOC to ISO "
-            ></label>
-            <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-              <input
-                type="checkbox"
-                name="toggle"
-                id="toggle"
-                class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-              />
-              <label
-                for="toggle"
-                class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
-            </div>
-            <label for="toggle" class="text-xs text-gray-700">
-              ISO to EPOC seconds
-            </label>
-          </div>
+      <div class="flex sm:flex-row flex-col w-full flex-wrap">
+        <div class="margin-auto w-4/5 flex">
           <div
             id="timeConvertPane"
-            class="w-full p-10 space-y-6 flex flex-row flex-wrap"
-          >
-            <label class="text-4xl w-full">Time Converter</label>
-            <br />
-            Time since epoch can be given in a variety of ways: seconds,
-            miliseconds, micro, or nano. This converter will take the time since
-            epoch and calculate an ISO time for each type, whether it is
-            sec/mili-sec/micro/nano. Other converters will force you know the
-            type, but you don't want to do that...counting digits is a pain.
-            Just insert a number and based on the results given here, it is
-            easier to deduced what you were given.
-            <br />
-            <br />
-            <div class="w-2/4 flex flex-col text-left relative">
-
-
-		<form onSubmit={this.handleSubmit} class="flex flex-col  w-3/5 top-14 left-20 absolute">
-		<label class="text-bold bg-blue-200 w-3/5"> unix timestamp since </label>
-<div class="space-x-5">
-                  <input
-                    id="tsInput"
-                    type="text"
-                    class="border-2 focus:ring-yellow-500 focus:ring-2 w-3/5"
-                    onChange={this.handleChange}
-                    />
-                  <input
-                    type="submit"
-                    value="Convert"
-                    class="hover:bg-blue-200 p-1 absolute"
-                    />
-</div>
-		</form>
+            class="w-full h-full p-10 flex flex-col sm:flex-row  flex-wrap content-start space-y-10"
+            >
+	    
+            <div class="w-full">
+	      <label class="text-4xl w-full">Time Converter</label><br/>
+              Convert time(nanoseconds/microseconds/miliseconds/seconds) to ISO
+              time.
             </div>
-            <div id="resultsPane" class="flex flex-col w-2/4 text-left">
-              <label class="text-bold bg-yellow-200 w-3/4"> Possible Results: </label>
+
+            <div class="w-1/3 text-right relative">
+	      <div class="w-3/5 right-0 absolute text-left">
+              <label class="text-bold bg-blue-200 w-full">
+                unix timestamp since{" "}
+              </label>
+                <input
+                  id="tsInput"
+                  type="text"
+                  class="border-2 focus:ring-yellow-500 focus:ring-2 w-full"
+                  onChange={this.handleChange}
+                  />
+		</div>
+            </div>
+	    <div class="w-1/6">
+              <button class="hover:bg-blue-200 p-1 m-auto border-2 border-blue-200"  onClick={this.handleSubmit}>convert</button>
+            </div>
+            <div id="resultsPane" class="w-3/6 text-left">
+              <label class="text-bold bg-yellow-200 w-full ">
+                Possible Results:
+              </label>
               <br />
-              <div class="w-3/4 border-2 border-blue-200 p-5">
-                <label type="text" >
-                  nanoseconds -> {this.state.nanoTime}
-                </label>
+              <div class="w-full border-2 border-blue-200 p-5">
+                <label type="text">nanoseconds -> {this.state.nanoTime}</label>
                 <br />
-                <label type="text" >
+                <label type="text">
                   microseconds -> {this.state.microTime}
                 </label>
                 <br />
