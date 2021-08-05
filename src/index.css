@@ -12,5 +12,10 @@
   @apply: bg-yellow-400;
   background-color: #fec718;
 }
+
+th {
+  font-weight : normal;
 }
+}
+
 

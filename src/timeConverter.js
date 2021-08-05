@@ -4,24 +4,33 @@ import ReactDOM from "react-dom";
 class timeConverter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { timestamp: "", nanoTime: "", microtime: "", militime: "" };
+
+    this.currentClock = new Date()
+    this.state = {  timestamp: "", 
+                    nanoTime: "", 
+                    microtime: "", 
+                    militime: "",
+                    currentTime: this.currentClock.toISOString()};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.convertTime = this.convertTime.bind(this);
+    
   }
 
+  //converts a timestamp, to an ISO formatted string
   convertTime(timestamp) {
     let ts = timestamp;
     var date = new Date(ts);
     let timeString = date.toISOString();
     return timeString;
   }
-
+  
   handleChange(event) {
     this.setState({ timestamp: event.target.value });
   }
 
+  //when the convert button is pressed
   handleSubmit(event) {
     event.preventDefault();
     var timeString;
@@ -45,6 +54,18 @@ class timeConverter extends React.Component {
     }
   }
 
+  tick() {
+        this.setState({currentTime : new Date().toISOString()})
+  }
+
+  componentDidMount() {
+    this.intervalID = setInterval(() => this.tick(), 100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
   render() {
     return (
       <div class="flex sm:flex-row flex-col w-full flex-wrap">
@@ -53,7 +74,7 @@ class timeConverter extends React.Component {
             id="timeConvertPane"
             class="w-full h-full p-10 flex flex-col sm:flex-row  flex-wrap content-start space-y-10"
             >
-	    
+              
             <div class="w-full">
 	      <label class="text-4xl w-full">Time Converter</label><br/>
               Convert time(nanoseconds/microseconds/miliseconds/seconds) to ISO
@@ -100,11 +121,23 @@ class timeConverter extends React.Component {
           </div>
         </div>
         <div class="bg-blue-50 w-1/5 h-full p-5 h-screen">
-          in works...when done this will visually show the time for each time
-          zone
           <br />
           <br />
-          GMT/UTC <br /> ECT <br /> EET <br />
+          <table class="m-auto text-left"> 
+            <tr>
+              <th class="pr-6" >Time Zone</th> <th>Current UTC time</th>
+            </tr>
+            <tr>
+              <th>GMT/UTC</th> <th>{this.state.currentTime}</th>
+            </tr>
+            <tr>
+              <th>ECT</th> <th></th>
+            </tr>
+            <tr>
+              <th>ECT</th> <th></th>
+            </tr>
+          </table>
+            
         </div>
       </div>
     );

@@ -13,7 +13,7 @@ class webDesigns extends React.Component {
 	  <div >
 	    <label class="text-2xl">Web Designs</label>
 	    <br />
-	    intuitive - robust - designs
+	    intuitive - robust - designs 
 	    <hr/>
 	  </div>
 	  <div id="sampleSketchups" class="text-center w-full">
@@ -32,8 +32,8 @@ class webDesigns extends React.Component {
 	    </table>
 	  </div>
 	  <div id="projectList" class="text-center w-full">
-	    <div class="text-center text-xl">Previous Projects</div>
-	    <table class="p-2 table-auto w-2/3 m-auto text-left">
+	    <div class="text-center">Previous Projects</div>
+	    <table class="p-2 table-auto w-2/3 m-auto text-left font-thin">
 	      <tr class="p-4">
 		<th> Project Name </th>
 		<th> description </th>
