@@ -3,19 +3,21 @@
 @tailwind utilities;
 
 @layer components {
-.toggle-checkbox:checked {
-  @apply: right-0 border-yellow-400;
-  right: 0;
-  border-color: #fec718;
-}
-.toggle-checkbox:checked + .toggle-label {
-  @apply: bg-yellow-400;
-  background-color: #fec718;
-}
+  .toggle-checkbox:checked {
+    @apply: right-0 border-yellow-400;
+    right: 0;
+    border-color: #fec718;
+  }
+  .toggle-checkbox:checked + .toggle-label {
+    @apply: bg-yellow-400;
+    background-color: #fec718;
+  }
 
-th {
-  font-weight : normal;
-}
-}
+  th {
+    font-weight: normal;
+  }
 
-
+  body {
+    overflow-y: hidden;
+  }
+}

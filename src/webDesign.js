@@ -25,8 +25,8 @@ class webDesigns extends React.Component {
 		<th>Stack</th>
 	      </tr>
 	      <tr class="bg-yellow-200">
-		<th>NA</th>
-		<th>NA</th>
+		<th>Linking coming soon</th>
+		<th>Sample of very bad sites</th>
 		<th>NA</th>
 	      </tr>
 	    </table>
