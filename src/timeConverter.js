@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import WorldTimePane from "./WorldTimePane";
 
 class timeConverter extends React.Component {
   constructor(props) {
@@ -11,12 +12,16 @@ class timeConverter extends React.Component {
       nanoTime: "",
       microtime: "",
       militime: "",
+      convertedTS: "",
+      TSError: false,
+      timeError: false,
       currentTime: this.currentClock,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.convertTime = this.convertTime.bind(this);
+    this.handleConvertTimeToTS = this.handleConvertTimeToTS.bind(this);
   }
 
   //converts a timestamp, to an ISO formatted string
@@ -27,18 +32,39 @@ class timeConverter extends React.Component {
     return timeString;
   }
 
+  convertTS(timeValue) {
+    return Date.parse(timeValue);
+  }
+
   handleChange(event) {
     this.setState({ timestamp: event.target.value });
   }
+
+  handleConvertTimeToTS(event) {
+    let timeValue = document.getElementById("timeInput").value;
+    let TSAfterConvesion = this.convertTS(timeValue)
+    if (isNaN(TSAfterConvesion)) {
+      this.setState({ timeError: true })
+    }
+    else {
+      this.setState({ timeError: false })
+      this.setState({ convertedTS: this.convertTS(timeValue) });
+    }
+  }
+
 
   //when the convert button is pressed
   handleSubmit(event) {
     event.preventDefault();
     var timeString;
 
-    let tsValue = document.getElementById("tsInput").value;
 
-    if (!isNaN(parseInt(tsValue))) {
+    let tsValue = document.getElementById("tsInput").value;
+    if (isNaN(tsValue)) {
+      this.setState({ TSError: true })
+    }
+    else {
+      this.setState({ TSError: false })
       this.setState({
         nanoTime: this.convertTime(Math.floor(tsValue / 1000000)),
       });
@@ -69,7 +95,7 @@ class timeConverter extends React.Component {
 
   render() {
     return (
-      <div class="flex sm:flex-row flex-col w-full flex-wrap">
+      <div class="flex sm:flex-row flex-col w-full flex-wrap bg-white">
         <div class="margin-auto w-4/5 flex flex-col">
           <div class="w-full"><label class="text-4xl w-full">Time Converter</label></div>
           <hr></hr>
@@ -79,7 +105,7 @@ class timeConverter extends React.Component {
               class="w-full h-full p-10 flex flex-col sm:flex-row  flex-wrap content-start space-y-10"
             >
               <div class="w-full text-left">
-                <label class="text-2xl w-full ">Time Converter</label>
+                <label class="text-2xl w-full ">Time stamp to time</label>
                 <br />
                 input a timestamp and hit convert
               </div>
@@ -95,6 +121,7 @@ class timeConverter extends React.Component {
                     class="border-2 focus:ring-yellow-500 focus:ring-2 w-full"
                     onChange={this.handleChange}
                   />
+                  <label id="converterErrorLabel" class={this.state.TSError ? 'text-red-400' : 'hidden'}>invalid parameter, value must be number</label>
                 </div>
               </div>
               <div class="w-1/6">
@@ -148,21 +175,20 @@ class timeConverter extends React.Component {
               <div class="w-1/3 text-right relative">
                 <div class="w-3/5 right-0 absolute text-left">
                   <label class="text-bold bg-blue-200 w-full">
-                    unix timestamp since{" "}
+                    ISO time{" "}
                   </label>
                   <input
-                    id="tsInput"
                     type="text"
+                    id="timeInput"
                     class="border-2 focus:ring-yellow-500 focus:ring-2 w-full"
-                    onChange={this.handleChange}
                   />
+                  <label class={this.state.timeError ? 'text-red-400' : 'hidden'}>Invalid, Input must be a valid time format</label>
                 </div>
               </div>
               <div class="w-1/6">
                 <button
                   class="hover:bg-blue-200 p-1 m-auto border-2 border-blue-200"
-                  onClick={this.handleSubmit}
-                >
+                  onClick={() => { this.handleConvertTimeToTS() }}>
                   convert
                 </button>
               </div>
@@ -173,141 +199,17 @@ class timeConverter extends React.Component {
                 <br />
                 <div class="w-full border-2 border-blue-200 p-5">
                   <label type="text">
-                    nanoseconds is {this.state.nanoTime}
+                    nanoseconds is {this.state.convertedTS}
                   </label>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="bg-blue-50 w-1/5 h-full p-5 h-screen">
-          <br />
-          <br />
-          <table class="m-auto text-left ">
-            <tr>
-              <th class="pr-6 text-xl text-yellow-600">Time Zone</th>{" "}
-              <th>Local Time</th>
-            </tr>
-            <hr class="bg-yellow-50"></hr>
-            <tr>
-              <th>GMT/UTC</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "UTC",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>CET/ECT/WET/RST/CEST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Europe/Brussels",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>JST/GTBST/MEST/EGST/SST/SAST/EET/EEST/NMST/ISST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Africa/Cairo",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>ARST/ABST/MSK/EAT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Baghdad",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>IRST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Tehran",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>ARBST/AZT/MUT/GET/AMT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Baku",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>AFT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Kabul",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>YEKT/PKT/WAST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Karachi",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>IST/SLT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Calcutta",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>NPT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Katmandu",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>BTT/BST/NCAST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Dhaka",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>MYST</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Rangoon",
-                })}
-              </th>
-            </tr>
-            <hr></hr>
-            <tr>
-              <th>THA/KRAT</th>{" "}
-              <th>
-                {this.state.currentTime.toLocaleString("en-US", {
-                  timeZone: "Asia/Bangkok",
-                })}
-              </th>
-            </tr>
-          </table>
+        <div class="bg-blue-50 w-1/5 h-full p-5">
+          <WorldTimePane></WorldTimePane>
         </div>
-      </div>
+      </div >
     );
   }
 }
