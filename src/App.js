@@ -9,32 +9,34 @@ function App() {
     <Router>
       <header></header>
       <body class="bg-gradient-to-b from-yellow-100 to-white h-full">
-      <nav class="flex flex-row justify-between font-semibold w-full bg-gray-500 border-b-4 border-yellow-200">
-          <Link class="pl-3 pt-1 pb-2 flex-col" to="/">
-	    <div class="items-center h-full w-full text-center pl-2 ">
-	      <label class="text-2xl text-yellow-400 ">BachsCollections</label>
-	    <div class="text-s mr-0 bg-white hover:bg-yellow-200">
-	      afterwork-projects  
-	    </div>
-	    </div>
-	  </Link>
-          <div class="space-x-5 p-5 pr-5">
-            <Link class="text-blue-50 hover:underline" to="/">
-              Home
+        <nav class="bg-gray-500 border-yellow-200 border-b-4">
+          <div class="flex flex-row justify-between font-semibold m-auto" style={{ width: "1366px" }}>
+            <Link class="" to="/">
+              <div class="items-center h-full text-center pl-2 ">
+                <label class="text-2xl text-yellow-400 ">BachsCollections</label>
+                <div class="text-s mr-0 bg-white hover:bg-yellow-200">
+                  afterwork-projects
+                </div>
+              </div>
             </Link>
-            <span class="sr-only">(current)</span>
-            <Link
-              to="/timeConverter"
-              class="text-blue-50 hover:underline transition duration-500"
-            >
-              Time Converter
-            </Link>
+            <div class="space-x-5 p-5 pr-5">
+              <Link class="text-blue-50 hover:underline" to="/">
+                Home
+              </Link>
+              <span class="sr-only">(current)</span>
+              <Link
+                to="/timeConverter"
+                class="text-blue-50 hover:underline transition duration-500"
+              >
+                Time Converter
+              </Link>
+            </div>
           </div>
         </nav>
-        <div class="text-center m-auto flow-hidden" style={{ width: "1366px" }}>
+        <div class="text-center m-auto" style={{ width: "1366px" }}>
           <Switch class="h-full">
             <Route exact path="/">
-              <Home class="h-full" />
+              <Home />
             </Route>
             <Route path="/timeConverter">
               <TimeConverter />
