@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import TimeConverter from "./timeConverter.js";
 import Home from "./home.js";
 import WebDesigns from "./webDesign.js";
+import Keyboards from "./KeyboardPage.jsx";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
               <Link class="text-blue-50 hover:underline" to="/">
                 Home
               </Link>
+              <Link class="text-blue-50 hover:underline" to="/keyboards">
+                Keyboards
+              </Link>
               <span class="sr-only">(current)</span>
               <Link
                 to="/timeConverter"
@@ -37,6 +41,9 @@ function App() {
           <Switch class="h-full">
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/keyboards">
+              <Keyboards />
             </Route>
             <Route path="/timeConverter">
               <TimeConverter />

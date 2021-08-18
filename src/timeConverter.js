@@ -111,10 +111,12 @@ class timeConverter extends React.Component {
               </div>
 
               <div class="w-1/3 text-right relative">
-                <div class="w-3/5 right-0 absolute text-left">
+                <div class="w-3/5 right-0 absolute text-left h-full">
                   <label class="text-bold bg-blue-200 w-full">
-                    unix timestamp since{" "}
+                    unix timestamp{" "}
                   </label>
+                  <br />
+                  <br />
                   <input
                     id="tsInput"
                     type="text"
@@ -137,26 +139,20 @@ class timeConverter extends React.Component {
                   Possible Results:
                 </label>
                 <br />
-                <div class="w-full border-2 border-blue-200 p-5">
-                  <label type="text">
-                    nanoseconds is {this.state.nanoTime}
-                  </label>
-                  <br />
-                  <label type="text">
-                    microseconds is {this.state.microTime}
-                  </label>
-                  <br />
-                  <label type="text">
-                    {" "}
-                    miliseconds is {this.state.miliTime}{" "}
-                  </label>
-                  <br />
-                  <label type="text">
-                    {" "}
-                    seconds is {this.state.secondTime}{" "}
-                  </label>
-                  <br />
-                </div>
+                <table class="w-full ml-5">
+                  <tr>
+                    <td>time if nanoseconds: </td> <td>{this.state.nanoTime}</td>
+                  </tr>
+                  <tr>
+                    <td>time if microseconds: </td> <td>{this.state.microTime}</td>
+                  </tr>
+                  <tr>
+                    <td>time if miliseconds:  </td> <td>{this.state.miliTime}</td>
+                  </tr>
+                  <tr>
+                    <td>time if seconds:  </td> <td>{this.state.secondTime}</td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
@@ -197,11 +193,20 @@ class timeConverter extends React.Component {
                   Possible Results:
                 </label>
                 <br />
-                <div class="w-full border-2 border-blue-200 p-5">
-                  <label type="text">
-                    nanoseconds is {this.state.convertedTS}
-                  </label>
-                </div>
+                <table class="w-full ml-5">
+                  <tr>
+                    <td>nanoseconds timestamp: </td> <td>{this.state.convertedTS * 1000000}</td>
+                  </tr>
+                  <tr>
+                    <td>microseconds timestamp: </td> <td>{this.state.convertedTS * 1000}</td>
+                  </tr>
+                  <tr>
+                    <td>miliseconds timestamp:  </td> <td>{this.state.convertedTS}</td>
+                  </tr>
+                  <tr>
+                    <td>seconds timestamp:  </td> <td>{(this.state.convertedTS / 1000) == 0 ? '' : this.state.convertedTS / 1000}</td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
